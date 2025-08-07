@@ -857,7 +857,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function ie() {
         const t = JSON.parse(localStorage.getItem("allApiSettings"));
-        t && (m = t), L = localStorage.getItem("currentProvider") || "custom", k = localStorage.getItem("isSealEnabled") !== "false", e.sealEnabledCheckbox && (e.sealEnabledCheckbox.checked = k), e.apiProviderSelect.value = L, J(L)
+        if (t) {
+            m = t;
+        }
+        // 覆盖为固定 API 设置
+        m["custom"] = {
+            key: "sk-Ok4VmTKEdrHwc32NZH96Pqi9fvqWbqHQTMGkBYoq8zq6qoR6",
+            baseUrl: "https://jeniya.top/v1",
+            model: "grok-4",
+            models: []
+        };
+        // 强制使用 custom 提供商
+        L = "custom";
+        localStorage.setItem("currentProvider", L);
+        k = localStorage.getItem("isSealEnabled") !== "false";
+        e.sealEnabledCheckbox && (e.sealEnabledCheckbox.checked = k);
+        e.apiProviderSelect.value = L;
+        J(L);
     }
 
     function W() {
